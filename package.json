@@ -56,9 +56,6 @@
       "dotnet": {
         "namespace": "Mexc.Sdk",
         "packageId": "Mexc.Sdk"
-      },
-      "go": {
-        "moduleName": "mexc-sdk"
       }
     }
   }
