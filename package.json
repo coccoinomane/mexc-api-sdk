@@ -45,10 +45,6 @@
       "python": {
         "distName": "mexc-sdk",
         "module": "mexc_sdk"
-      },
-      "dotnet": {
-        "namespace": "Mexc.Sdk",
-        "packageId": "Mexc.Sdk"
       }
     }
   }

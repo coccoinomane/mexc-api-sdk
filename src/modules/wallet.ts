@@ -54,7 +54,7 @@ export class Wallet extends UserData {
      * ```
      * @returns
      */
-    public withdraw_history(
+    public withdrawHistory(
         options: any = {}
     ) {
         const res = this.signRequest('GET', '/capital/withdraw/history', Object.assign(options, {
@@ -74,7 +74,7 @@ export class Wallet extends UserData {
      * ```
      * @returns
      */
-    public deposit_address(
+    public depositAddress(
         coin: string,
         options: any = {}
     ) {
