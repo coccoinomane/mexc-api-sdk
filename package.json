@@ -42,13 +42,6 @@
     "outdir": "dist",
     "versionFormat": "short",
     "targets": {
-      "java": {
-        "package": "Mexc.Sdk",
-        "maven": {
-          "groupId": "Mexc",
-          "artifactId": "Core"
-        }
-      },
       "python": {
         "distName": "mexc-sdk",
         "module": "mexc_sdk"
