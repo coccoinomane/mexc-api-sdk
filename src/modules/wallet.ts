@@ -6,11 +6,11 @@ export class Wallet extends UserData {
      * Withdraw
      * 
      * @param coin
+     * @param network
      * @param address
      * @param amount
      * @param options
      * ```
-     * [options.network]
      * [options.memo]
      * [options.remark]
      * [options.withdrawOrderId] - A unique id among open withdrawals. Automatically generated if not sent.
@@ -20,20 +20,20 @@ export class Wallet extends UserData {
      */
     public withdraw(
         coin: string,
+        network: string,
         address: string,
         amount: number,
         options: any = {}
     ) {
-        if([coin, address].some(str => !str.trim())) {
-            console.assert(false, `Some params are required`)
-            return
+        if([coin, network, address].some(str => !str.trim())) {
+            throw new Error("Some params are required");
         }
-        if(amount) {
-            console.assert(false, `Amount must be greater than zero`)
-            return
+        if(amount<=0) {
+            throw new Error("Amount must be greater than zero");
         }
         const res = this.signRequest('POST', '/capital/withdraw/apply', Object.assign(options, {
             coin: coin.toUpperCase(),
+            network: network.toUpperCase(),
             address,
             amount
         }))
