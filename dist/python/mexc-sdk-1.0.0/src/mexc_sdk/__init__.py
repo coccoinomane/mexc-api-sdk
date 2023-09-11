@@ -518,12 +518,18 @@ from ._jsii import *
 
 
 class Base(metaclass=jsii.JSIIMeta, jsii_type="mexc-sdk.Base"):
-    def __init__(self, api_key: builtins.str, api_secret: builtins.str) -> None:
+    def __init__(
+        self,
+        api_key: typing.Optional[builtins.str] = None,
+        api_secret: typing.Optional[builtins.str] = None,
+        debug: typing.Optional[builtins.bool] = None,
+    ) -> None:
         '''
         :param api_key: -
         :param api_secret: -
+        :param debug: -
         '''
-        jsii.create(self.__class__, self, [api_key, api_secret])
+        jsii.create(self.__class__, self, [api_key, api_secret, debug])
 
     @jsii.member(jsii_name="publicRequest")
     def public_request(
@@ -564,12 +570,18 @@ class Base(metaclass=jsii.JSIIMeta, jsii_type="mexc-sdk.Base"):
 
 
 class Market(Base, metaclass=jsii.JSIIMeta, jsii_type="mexc-sdk.Market"):
-    def __init__(self, api_key: builtins.str, api_secret: builtins.str) -> None:
+    def __init__(
+        self,
+        api_key: typing.Optional[builtins.str] = None,
+        api_secret: typing.Optional[builtins.str] = None,
+        debug: typing.Optional[builtins.bool] = None,
+    ) -> None:
         '''
         :param api_key: -
         :param api_secret: -
+        :param debug: -
         '''
-        jsii.create(self.__class__, self, [api_key, api_secret])
+        jsii.create(self.__class__, self, [api_key, api_secret, debug])
 
     @jsii.member(jsii_name="aggTrades")
     def agg_trades(
@@ -674,12 +686,18 @@ class Market(Base, metaclass=jsii.JSIIMeta, jsii_type="mexc-sdk.Market"):
 
 
 class Common(Market, metaclass=jsii.JSIIMeta, jsii_type="mexc-sdk.Common"):
-    def __init__(self, api_key: builtins.str, api_secret: builtins.str) -> None:
+    def __init__(
+        self,
+        api_key: typing.Optional[builtins.str] = None,
+        api_secret: typing.Optional[builtins.str] = None,
+        debug: typing.Optional[builtins.bool] = None,
+    ) -> None:
         '''
         :param api_key: -
         :param api_secret: -
+        :param debug: -
         '''
-        jsii.create(self.__class__, self, [api_key, api_secret])
+        jsii.create(self.__class__, self, [api_key, api_secret, debug])
 
     @jsii.member(jsii_name="ping")
     def ping(self) -> typing.Any:
@@ -693,12 +711,18 @@ class Common(Market, metaclass=jsii.JSIIMeta, jsii_type="mexc-sdk.Common"):
 
 
 class UserData(Common, metaclass=jsii.JSIIMeta, jsii_type="mexc-sdk.UserData"):
-    def __init__(self, api_key: builtins.str, api_secret: builtins.str) -> None:
+    def __init__(
+        self,
+        api_key: typing.Optional[builtins.str] = None,
+        api_secret: typing.Optional[builtins.str] = None,
+        debug: typing.Optional[builtins.bool] = None,
+    ) -> None:
         '''
         :param api_key: -
         :param api_secret: -
+        :param debug: -
         '''
-        jsii.create(self.__class__, self, [api_key, api_secret])
+        jsii.create(self.__class__, self, [api_key, api_secret, debug])
 
     @jsii.member(jsii_name="accountInfo")
     def account_info(self) -> typing.Any:
@@ -720,12 +744,26 @@ class UserData(Common, metaclass=jsii.JSIIMeta, jsii_type="mexc-sdk.UserData"):
 
 
 class Wallet(UserData, metaclass=jsii.JSIIMeta, jsii_type="mexc-sdk.Wallet"):
-    def __init__(self, api_key: builtins.str, api_secret: builtins.str) -> None:
+    def __init__(
+        self,
+        api_key: typing.Optional[builtins.str] = None,
+        api_secret: typing.Optional[builtins.str] = None,
+        debug: typing.Optional[builtins.bool] = None,
+    ) -> None:
         '''
         :param api_key: -
         :param api_secret: -
+        :param debug: -
         '''
-        jsii.create(self.__class__, self, [api_key, api_secret])
+        jsii.create(self.__class__, self, [api_key, api_secret, debug])
+
+    @jsii.member(jsii_name="cancelWithdraw")
+    def cancel_withdraw(self, id: builtins.str) -> typing.Any:
+        '''Cancel a withdraw.
+
+        :param id: -
+        '''
+        return typing.cast(typing.Any, jsii.invoke(self, "cancelWithdraw", [id]))
 
     @jsii.member(jsii_name="depositAddress")
     def deposit_address(
@@ -740,10 +778,31 @@ class Wallet(UserData, metaclass=jsii.JSIIMeta, jsii_type="mexc-sdk.Wallet"):
         '''
         return typing.cast(typing.Any, jsii.invoke(self, "depositAddress", [coin, options]))
 
+    @jsii.member(jsii_name="depositHistory")
+    def deposit_history(self, options: typing.Any = None) -> typing.Any:
+        '''Deposit history.
+
+        :param options: ``[options.coin] [options.status] [options.limit] - default:1000, max:1000 [options.startTime] - default: 30 days ago from current time [options.endTime] - default:current time``.
+        '''
+        return typing.cast(typing.Any, jsii.invoke(self, "depositHistory", [options]))
+
+    @jsii.member(jsii_name="getAllCoins")
+    def get_all_coins(self, coin: typing.Optional[builtins.str] = None) -> typing.Any:
+        '''Return info about all coins available for deposit and withdraw: withdrawal networks, withdrawal & deposit status, fees, limits, etc.
+
+        Big response!
+
+        :param coin: optionally filter result by coin.
+
+        :return: Response exaple: https://d.pr/i/JUixbx
+        '''
+        return typing.cast(typing.Any, jsii.invoke(self, "getAllCoins", [coin]))
+
     @jsii.member(jsii_name="withdraw")
     def withdraw(
         self,
         coin: builtins.str,
+        network: builtins.str,
         address: builtins.str,
         amount: jsii.Number,
         options: typing.Any = None,
@@ -751,11 +810,20 @@ class Wallet(UserData, metaclass=jsii.JSIIMeta, jsii_type="mexc-sdk.Wallet"):
         '''Withdraw.
 
         :param coin: -
+        :param network: -
         :param address: -
         :param amount: -
-        :param options: ``[options.network] [options.memo] [options.remark] [options.withdrawOrderId] - A unique id among open withdrawals. Automatically generated if not sent. [options.recvWindow] - The value cannot be greater than 60000``.
+        :param options: ``[options.memo] [options.remark] [options.withdrawOrderId] - A unique id among open withdrawals. Automatically generated if not sent. [options.recvWindow] - The value cannot be greater than 60000``.
         '''
-        return typing.cast(typing.Any, jsii.invoke(self, "withdraw", [coin, address, amount, options]))
+        return typing.cast(typing.Any, jsii.invoke(self, "withdraw", [coin, network, address, amount, options]))
+
+    @jsii.member(jsii_name="withdrawAddress")
+    def withdraw_address(self, options: typing.Any = None) -> typing.Any:
+        '''Deposit address.
+
+        :param options: ``[options.coin] [options.page] [options.limit]``.
+        '''
+        return typing.cast(typing.Any, jsii.invoke(self, "withdrawAddress", [options]))
 
     @jsii.member(jsii_name="withdrawHistory")
     def withdraw_history(self, options: typing.Any = None) -> typing.Any:
@@ -767,12 +835,18 @@ class Wallet(UserData, metaclass=jsii.JSIIMeta, jsii_type="mexc-sdk.Wallet"):
 
 
 class Trade(UserData, metaclass=jsii.JSIIMeta, jsii_type="mexc-sdk.Trade"):
-    def __init__(self, api_key: builtins.str, api_secret: builtins.str) -> None:
+    def __init__(
+        self,
+        api_key: typing.Optional[builtins.str] = None,
+        api_secret: typing.Optional[builtins.str] = None,
+        debug: typing.Optional[builtins.bool] = None,
+    ) -> None:
         '''
         :param api_key: -
         :param api_secret: -
+        :param debug: -
         '''
-        jsii.create(self.__class__, self, [api_key, api_secret])
+        jsii.create(self.__class__, self, [api_key, api_secret, debug])
 
     @jsii.member(jsii_name="allOrders")
     def all_orders(
