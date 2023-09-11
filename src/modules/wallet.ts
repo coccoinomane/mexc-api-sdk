@@ -8,6 +8,7 @@ export class Wallet extends UserData {
      * @param coin
      * @param address
      * @param amount
+     * @param options
      * ```
      * [options.network]
      * [options.memo]
@@ -44,7 +45,8 @@ export class Wallet extends UserData {
 
     /**
      * Withdraw history
-     * 
+     *
+     * @param options
      * ```
      * [options.coin]
      * [options.status]
@@ -69,6 +71,7 @@ export class Wallet extends UserData {
      * Deposit address
      * 
      * @param coin
+     * @param options
      * ```
      * [options.network]
      * ```
