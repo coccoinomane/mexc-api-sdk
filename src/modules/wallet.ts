@@ -68,6 +68,52 @@ export class Wallet extends UserData {
     }
 
     /**
+     * Deposit history
+     *
+     * @param options
+     * ```
+     * [options.coin]
+     * [options.status]
+     * [options.limit] - default:1000, max:1000
+     * [options.startTime] - default: 30 days ago from current time
+     * [options.endTime] - default:current time
+     * ```
+     * @returns
+     */
+    public depositHistory(
+        options: any = {}
+    ) {
+        const res = this.signRequest('GET', '/capital/deposit/hisrec', Object.assign(options, {
+        }))
+        const rawData = JSON.parse(res.getBody());
+        const formatDatas = fromatData(rawData);
+    
+        return formatDatas;
+    }
+
+    /**
+     * Deposit address
+     *
+     * @param options
+     * ```
+     * [options.coin]
+     * [options.page]
+     * [options.limit]
+     * ```
+     * @returns
+     */
+    public withdrawAddress(
+        options: any = {}
+    ) {
+        const res = this.signRequest('GET', '/capital/withdraw/address', Object.assign(options, {
+        }))
+        const rawData = JSON.parse(res.getBody());
+        const formatDatas = fromatData(rawData);
+    
+        return formatDatas;
+    }
+
+    /**
      * Deposit address
      * 
      * @param coin
@@ -91,6 +137,33 @@ export class Wallet extends UserData {
         const rawData = JSON.parse(res.getBody());
         const formatDatas = fromatData(rawData);
     
+        return formatDatas;
+    }
+
+    /**
+     * Return info about all coins available for deposit and withdraw:
+     * withdrawal networks, withdrawal & deposit status, fees, limits,
+     * etc.
+     * 
+     * Big response!
+     * 
+     * @param coin optionally filter result by coin
+     * @returns Response exaple: https://d.pr/i/JUixbx
+     */
+    public getAllCoins(coin: string = null) {
+        const res = this.signRequest('GET', '/capital/config/getall', {})
+        const rawData = JSON.parse(res.getBody());
+        const formatDatas = fromatData(rawData);
+
+        if(coin) {
+            for (let i = 0; i < formatDatas.length; i++) {
+                const data = formatDatas[i];
+                if(data.coin === coin.toUpperCase()) {
+                    return data.networkList;
+                }
+            }
+        }
+
         return formatDatas;
     }
 }
