@@ -44,6 +44,27 @@ export class Wallet extends UserData {
     }
 
     /**
+     * Cancel a withdraw
+     * 
+     * @param id
+     * @returns
+     */
+    public cancelWithdraw(
+        id: string,
+    ) {
+        if([id].some(str => !str.trim())) {
+            throw new Error("Some params are required");
+        }
+        const res = this.signRequest('DELETE', '/capital/withdraw', {
+            id: id
+        })
+        const rawData = JSON.parse(res.getBody());
+        const formatDatas = fromatData(rawData);
+    
+        return formatDatas;
+    }
+
+    /**
      * Withdraw history
      *
      * @param options
