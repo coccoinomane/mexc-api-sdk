@@ -1,7 +1,10 @@
 import request from "sync-request";
 
 const createRequest = (config: any) => {
-    const { baseURL, method, url, headers } = config
+    const { baseURL, method, url, headers, debug } = config
+    if (debug) {
+        console.log('request', config)
+    }
     return request(method, `${baseURL}${url}`, { headers })
 }
 

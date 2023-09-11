@@ -3,10 +3,12 @@ import * as crypto from 'crypto';
 
 export class Base {
   public config: any = {};
-  constructor(apiKey: string, apiSecret: string) {
+
+  constructor(apiKey: string = '', apiSecret: string = '', debug: boolean = false) {
     this.config.apiKey = apiKey;
     this.config.apiSecret = apiSecret;
     this.config.baseURL = 'https://api.mexc.com/api/v3';
+    this.config.debug = debug;
   }
 
   public publicRequest (method: string, path: string, paramsObj: any = {}): any {
@@ -17,14 +19,16 @@ export class Base {
     }
 
     return createRequest({
-      method: method,
-      baseURL: this.config.baseURL,
-      url: path,
-      headers: {
-        'Content-Type': 'application/json',
-        'X-MEXC-APIKEY': this.config.apiKey
-      }
-    })
+        method: method,
+        baseURL: this.config.baseURL,
+        url: path,
+        headers: {
+          'Content-Type': 'application/json',
+          'X-MEXC-APIKEY': this.config.apiKey
+        },
+        debug: this.config.debug
+      },
+    )
   }
 
   public signRequest(method: string, path: string, paramsObj: any = {}): any {
@@ -37,13 +41,15 @@ export class Base {
         .digest('hex')
 
     return createRequest({
-      method: method,
-      baseURL: this.config.baseURL,
-      url: `${path}?${queryString}&signature=${signature}`,
-      headers: {
-        'Content-Type': 'application/json',
-        'X-MEXC-APIKEY': this.config.apiKey
-      }
-    })
+        method: method,
+        baseURL: this.config.baseURL,
+        url: `${path}?${queryString}&signature=${signature}`,
+        headers: {
+          'Content-Type': 'application/json',
+          'X-MEXC-APIKEY': this.config.apiKey
+        },
+        debug: this.config.debug
+      },
+    )
   }
 }

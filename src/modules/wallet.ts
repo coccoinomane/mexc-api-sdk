@@ -128,8 +128,7 @@ export class Wallet extends UserData {
         options: any = {}
     ) {
         if([coin].some(str => !str.trim())) {
-            console.assert(false, `Some params are required`)
-            return
+            throw new Error("Some params are required");
         }
         const res = this.signRequest('GET', '/capital/deposit/address', Object.assign(options, {
             coin: coin.toUpperCase(),
@@ -150,7 +149,7 @@ export class Wallet extends UserData {
      * @param coin optionally filter result by coin
      * @returns Response exaple: https://d.pr/i/JUixbx
      */
-    public getAllCoins(coin: string = null) {
+    public getAllCoins(coin?: string) {
         const res = this.signRequest('GET', '/capital/config/getall', {})
         const rawData = JSON.parse(res.getBody());
         const formatDatas = fromatData(rawData);
